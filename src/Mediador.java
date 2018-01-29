@@ -19,7 +19,6 @@ public class Mediador implements Controller {
     }//end constructor
 
 
-
     ///////// Metodos de obtencion de datos del Model /////////////
 
     public Paciente obtieneDatoDelModel(int indice) {
