@@ -6,7 +6,7 @@ import java.awt.*;
 import java.awt.event.*;
 
 
-public class InterfazNuevaReceta extends Frame implements View {
+public class InterfazNuevaReceta extends Frame implements ActionListener {
     Button cancelar;
     Button guardar;
 
@@ -29,7 +29,7 @@ public class InterfazNuevaReceta extends Frame implements View {
         addWindowListener(new WindowAdapter(){
             public void windowClosing(WindowEvent we)
             {
-                System.exit(0);
+                termina();
             }
         });
         setResizable(false);
@@ -44,6 +44,8 @@ public class InterfazNuevaReceta extends Frame implements View {
         add(cancelar);
         guardar.setBounds(200, 210, 80, 20);
         add(guardar);
+        cancelar.addActionListener(this::actionPerformed);
+        guardar.addActionListener(this::actionPerformed);
 
         nombre = new TextField();
         edad = new TextField();
@@ -71,15 +73,20 @@ public class InterfazNuevaReceta extends Frame implements View {
         add(etiquetaTratamiento);
     }//end constuyeComponentes
 
-    public void setActionListener(Controller theController) {
-        cancelar.addActionListener(theController);
-        guardar.addActionListener(theController);
-    }//end setActionListener
+    public void actionPerformed(ActionEvent evento) {
+        Button botonAccionado = (Button) evento.getSource();
+        System.out.println(botonAccionado);
+        if(botonAccionado == cancelar) {
+            termina();
+        }else if (botonAccionado == guardar){
+            //Accion para guardar datos
+
+        }//end if
+    }//end actionPerformed
 
     public void inicia() {
         setVisible(true);
     }//end inicia
-
     public void termina(){
         setVisible(false);
     }

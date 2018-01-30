@@ -1,8 +1,7 @@
 /**
  * Created by gerardoayala on 3/3/16.
  */
-public interface Model
-{
+public interface Model {
     public void cargaDatosDelRepositorioALaEstructura();
     public void salvaDatosDeLaEstructuraAlRepositorio();
     public void agregaDatosALaEstructura(int indice, Object dato);

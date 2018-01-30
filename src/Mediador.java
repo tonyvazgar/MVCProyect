@@ -85,11 +85,6 @@ public class Mediador implements Controller {
             viewSecundario.inicia();
         }//end if
 
-
-        if(botonAccionado == viewSecundario.cancelar){
-            viewSecundario.termina();
-        }//end if
-
 /*
         if(botonAccionado == view.botonAgregar)
         {

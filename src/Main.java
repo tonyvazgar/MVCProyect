@@ -19,7 +19,6 @@ public class Main {
         controller = new Mediador(model, view, view2);
         // y se asocia al view.
         view.setActionListener(controller);
-        view2.setActionListener(controller);
         // se inicia el contenido del view
         controller.actualizaElView();
 
