@@ -7,15 +7,15 @@ import java.awt.event.ActionEvent;
 
 
 public class Mediador implements Controller {
-    InterfazPrincipal view;
-    int indice = 0;
-    InterfazNuevaReceta viewSecundario;
-    Datos model;
 
-    public Mediador(Datos model, InterfazPrincipal theView, InterfazNuevaReceta theView2) {
-        model = model;
-        view = theView;
-        viewSecundario = theView2;
+    InterfazPrincipal view;
+    Datos model;
+    int indice = 0;
+
+
+    public Mediador(Datos model, InterfazPrincipal view) {
+        this.model = model;
+        this.view = view;
     }//end constructor
 
 
@@ -34,13 +34,38 @@ public class Mediador implements Controller {
     ///////// Metodos de obtencion de datos del View /////////////
 
     public Paciente obtieneDatoDelView() {
-        Paciente paciente =  null;//new Paciente(view.nombre.getText(),Integer.parseInt(view.edad.getText()),view.tratamiento.getText());
-        return paciente;
+
+        String nombre, fecha, sexo, temperatura, diagnostico, tratamiento;
+        int peso, edad;
+
+        nombre = view.nombre.getText();
+        fecha = view.fecha.getText();
+        sexo = view.sexo.getText();
+        edad = Integer.parseInt(view.edad.getText());
+        temperatura = view.temperatura.getText();
+        peso = Integer.parseInt(view.peso.getText());
+        diagnostico = view.diagnostico.getText();
+        tratamiento = view.tratamiento.getText();
+
+        return new Paciente(nombre,fecha,sexo,edad,temperatura,peso,diagnostico,temperatura);
     }//end obtieneDatoDelView
 
 
     public void actualizaElView() {
 
+        String nombre, fecha, sexo, temperatura, diagnostico, tratamiento;
+        int peso, edad;
+        Paciente paciente = obtieneDatoDelModel(indice);
+        if (paciente != null){
+            view.nombre.setText(paciente.getNombre());
+            view.fecha.setText(paciente.getFecha());
+            view.sexo.setText(paciente.getSexo());
+            view.edad.setText(Integer.toString(paciente.getEdad()));
+            view.temperatura.setText(paciente.getTemperatura());
+            view.peso.setText(Integer.toString(paciente.getPeso()));
+            view.diagnostico.setText(paciente.getDiagnostico());
+            view.tratamiento.setText(paciente.getTratamiento());
+        }
     }//end actualizaElView
 
 
@@ -78,68 +103,24 @@ public class Mediador implements Controller {
 
 
     public void actionPerformed(ActionEvent evento) {
+
         Button botonAccionado = (Button) evento.getSource();
-        System.out.println(botonAccionado);
-        viewSecundario = new InterfazNuevaReceta();
-        if(botonAccionado == view.nuevo) {
-            viewSecundario.inicia();
-        }//end if
+        System.out.println(botonAccionado.getLabel());
 
-/*
-        if(botonAccionado == view.botonAgregar)
-        {
-            if(interfazEstaLimpia)
-            {
-                solicitaActualizacionDelModel("agregar");
-                actualizaElView();
-            }//end if
-        }//end if
-
-
-        if(botonAccionado == view.botonEliminar)
-        {
-            if(model.hayDatos())
-            {
-                dialogo = new Dialogo(view, "Deseas eliminar este registro?");
-                if(dialogo.seAceptaAccion())
-                {
-                    solicitaActualizacionDelModel("eliminar");
-                    decrementaApuntador();
-                    actualizaElView();
-                }//end if
-            }//end if
-        }//end if
-
-
-        if(botonAccionado == view.botonModificar)
-        {
-            solicitaActualizacionDelModel("modificar");
-            actualizaElView();
-        }//end if
-
-
-        if(botonAccionado == view.botonOrdenar)
-        {
-            solicitaActualizacionDelModel("ordenar");
-            indice = 0;
-            actualizaElView();
-        }//end if
-
-
-        if(botonAccionado == view.botonSalvar)
-        {
-            dialogo = new Dialogo(view, "Deseas salvar  los datos?");
-            if(dialogo.seAceptaAccion())
-                model.salvaDatosDeLaEstructuraAlRepositorio();
-            //end if
-        }//end if
-
-
-        if(botonAccionado == view.botonLimpiar)
-        {
-            limpiaInterfaz();
-        }//end if
-  */
-    }//end actionPerformed
-
+        switch (botonAccionado.getLabel()){
+            case "Nuevo":
+                InterfazNuevaReceta nuevaReceta = new InterfazNuevaReceta();
+                nuevaReceta.inicia();
+                break;
+            case "Borrar":
+                view.tratamiento.setText("ACKUBIKIBISISAIS");
+                break;
+            case "Anterior":
+                view.tratamiento.setText("HOLAAAAA");
+                break;
+            case "Siguiente":
+                view.tratamiento.setText("KEPEXSDS");
+                break;
+        }
+    }
 }//end class Mediator

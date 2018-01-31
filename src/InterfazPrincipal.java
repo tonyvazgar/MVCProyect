@@ -50,23 +50,31 @@ public class InterfazPrincipal extends Frame implements View {
         constuyeComponentes();
     }
 
-
-    ///////// Construccion de los componentes de la interfaz //////////////
     public void constuyeComponentes() {
+
+        ponerBotones();
+        ponerEtiquetas();
+        ponerCasillas();
+
+    }
+
+    public void ponerBotones(){
         nuevo = new Button("Nuevo");
         borrar = new Button("Borrar");
         anterior = new Button("Anterior");
         siguiente = new Button("Siguiente");
 
-        nuevo.setBounds(370, 130, 80, 20);
+        nuevo.setBounds(370, 100, 80, 20);
         add(nuevo);
-        borrar.setBounds(370, 170, 80, 20);
+        borrar.setBounds(370, 140, 80, 20);
         add(borrar);
-        anterior.setBounds(370, 210, 80, 20);
+        anterior.setBounds(370, 240, 80, 20);
         add(anterior);
-        siguiente.setBounds(370, 250, 80, 20);
+        siguiente.setBounds(370, 280, 80, 20);
         add(siguiente);
+    }
 
+    public void ponerEtiquetas(){
         etiquetaNombre = new Label("Nombre:");
         etiquetaFecha = new Label("Fecha");
         etiquetaSexo = new Label("Sexo:");
@@ -95,7 +103,9 @@ public class InterfazPrincipal extends Frame implements View {
         add(etiquetaDiagnostico);
         etiquetaTratamiento.setBounds(10, 260, 90, 20);
         add(etiquetaTratamiento);
+    }
 
+    public void ponerCasillas(){
         nombre = new TextField();
         fecha = new TextField();
         sexo = new TextField();
@@ -106,23 +116,29 @@ public class InterfazPrincipal extends Frame implements View {
         tratamiento = new TextArea();
 
         nombre.setBounds(100, 50, 250, 20);
+        nombre.setEditable(false);
         add(nombre);
         fecha.setBounds(100, 80, 250, 20);
+        fecha.setEditable(false);
         add(fecha);
         sexo.setBounds(100, 110, 250, 20);
+        sexo.setEditable(false);
         add(sexo);
         peso.setBounds(100, 140, 250, 20);
+        peso.setEditable(false);
         add(peso);
         temperatura.setBounds(100, 170, 250, 20);
+        temperatura.setEditable(false);
         add(temperatura);
         edad.setBounds(100, 200, 50, 20);
+        edad.setEditable(false);
         add(edad);
         diagnostico.setBounds(100, 230, 250, 20);
+        diagnostico.setEditable(false);
         add(diagnostico);
         tratamiento.setBounds(100, 260, 250, 150);
+        tratamiento.setEditable(false);
         add(tratamiento);
-
-
     }
 
     public void setActionListener(Controller theController) {
@@ -136,7 +152,6 @@ public class InterfazPrincipal extends Frame implements View {
     public void inicia() {
         setVisible(true);
     }
-
 
 
 }//end class Interfaz
