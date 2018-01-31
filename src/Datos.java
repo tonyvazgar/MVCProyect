@@ -20,21 +20,25 @@ public class Datos extends LinkedList<Paciente> implements Model {
         int numeroDeRegistros;
         int i;
         Paciente paciente;
-        String nombre;
-        int edad;
-        String tratamiento;
+        String nombre, fecha, sexo, temperatura, diagnostico, tratamiento;
+        int edad, peso;
         datos = new SequentialFile("/Users/tony/IdeaProjects/MVCProyect/src","recetas","txt");
         datos.open();
         numeroDeLineas = datos.getNumberOfLines();
-        numeroDeRegistros = numeroDeLineas / 3;
+        numeroDeRegistros = numeroDeLineas / 8;
         i = 0;
         while(i < numeroDeRegistros)
         {
             nombre = datos.readString();
+            fecha = datos.readString();
+            sexo = datos.readString();
+            peso = datos.readInt();
+            temperatura = datos.readString();
             edad = datos.readInt();
+            diagnostico = datos.readString();
             tratamiento = datos.readString();
-            paciente = new Paciente(nombre,edad,tratamiento);
-            System.out.println(paciente.toString());
+            paciente = new Paciente(nombre, fecha, sexo, peso, temperatura, edad, diagnostico, tratamiento);
+            System.out.println(paciente.toString() + " " + paciente.getNombre() + " "+ paciente.getTemperatura() + " " + paciente.getTratamiento());
             add(paciente);
             i = i + 1;
         }//end while

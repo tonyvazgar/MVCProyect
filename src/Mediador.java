@@ -34,7 +34,7 @@ public class Mediador implements Controller {
     ///////// Metodos de obtencion de datos del View /////////////
 
     public Paciente obtieneDatoDelView() {
-        Paciente paciente = new Paciente(view.nombre.getText(),Integer.parseInt(view.edad.getText()),view.tratamiento.getText());
+        Paciente paciente =  null;//new Paciente(view.nombre.getText(),Integer.parseInt(view.edad.getText()),view.tratamiento.getText());
         return paciente;
     }//end obtieneDatoDelView
 

@@ -15,17 +15,27 @@ public class InterfazPrincipal extends Frame implements View {
     Button borrar;
 
     TextField nombre;
+    TextField fecha;
+    TextField sexo;
+    TextField peso;
+    TextField temperatura;
     TextField edad;
+    TextField diagnostico;
     TextArea tratamiento;
 
     Label etiquetaNombre;
+    Label etiquetaFecha;
+    Label etiquetaSexo;
+    Label etiquetaPeso;
+    Label etiquetaTemperatura;
     Label etiquetaEdad;
     Label etiquetaAnos;
+    Label etiquetaDiagnostico;
     Label etiquetaTratamiento;
 
     public InterfazPrincipal() {
-        setTitle("*Recetas*");
-        setBounds(100, 100, 460, 220);
+        setTitle("*RECETAS*");
+        setBounds(100, 100, 460, 420);
         setLocationRelativeTo(null);
         setBackground(new Color(255,255,255));
         setLayout(null);
@@ -48,39 +58,71 @@ public class InterfazPrincipal extends Frame implements View {
         anterior = new Button("Anterior");
         siguiente = new Button("Siguiente");
 
-        nuevo.setBounds(370, 50, 80, 20);
+        nuevo.setBounds(370, 130, 80, 20);
         add(nuevo);
-        borrar.setBounds(370, 90, 80, 20);
+        borrar.setBounds(370, 170, 80, 20);
         add(borrar);
-        anterior.setBounds(370, 130, 80, 20);
+        anterior.setBounds(370, 210, 80, 20);
         add(anterior);
-        siguiente.setBounds(370, 170, 80, 20);
+        siguiente.setBounds(370, 250, 80, 20);
         add(siguiente);
 
+        etiquetaNombre = new Label("Nombre:");
+        etiquetaFecha = new Label("Fecha");
+        etiquetaSexo = new Label("Sexo:");
+        etiquetaPeso = new Label("Peso:");
+        etiquetaTemperatura = new Label("Temperatura:");
+        etiquetaEdad = new Label("Edad:");
+        etiquetaAnos = new Label("Años");
+        etiquetaDiagnostico = new Label("Diagnostico:");
+        etiquetaTratamiento = new Label("Tratamiento:");
+
+        etiquetaNombre.setBounds(10, 50, 90, 20);
+        add(etiquetaNombre);
+        etiquetaFecha.setBounds(10, 80, 90, 20);
+        add(etiquetaFecha);
+        etiquetaSexo.setBounds(10, 110, 90, 20);
+        add(etiquetaSexo);
+        etiquetaPeso.setBounds(10, 140, 90, 20);
+        add(etiquetaPeso);
+        etiquetaTemperatura.setBounds(10, 170, 90, 20);
+        add(etiquetaTemperatura);
+        etiquetaEdad.setBounds(10, 200, 90, 20);
+        add(etiquetaEdad);
+        etiquetaAnos.setBounds(155, 200, 90, 20);
+        add(etiquetaAnos);
+        etiquetaDiagnostico.setBounds(10, 230, 90, 20);
+        add(etiquetaDiagnostico);
+        etiquetaTratamiento.setBounds(10, 260, 90, 20);
+        add(etiquetaTratamiento);
+
         nombre = new TextField();
+        fecha = new TextField();
+        sexo = new TextField();
+        peso = new TextField();
+        temperatura = new TextField();
         edad = new TextField();
+        diagnostico = new TextField();
         tratamiento = new TextArea();
 
         nombre.setBounds(100, 50, 250, 20);
         add(nombre);
-        edad.setBounds(100, 80, 50, 20);
+        fecha.setBounds(100, 80, 250, 20);
+        add(fecha);
+        sexo.setBounds(100, 110, 250, 20);
+        add(sexo);
+        peso.setBounds(100, 140, 250, 20);
+        add(peso);
+        temperatura.setBounds(100, 170, 250, 20);
+        add(temperatura);
+        edad.setBounds(100, 200, 50, 20);
         add(edad);
-        tratamiento.setBounds(100, 110, 250, 80);
+        diagnostico.setBounds(100, 230, 250, 20);
+        add(diagnostico);
+        tratamiento.setBounds(100, 260, 250, 150);
         add(tratamiento);
 
-        etiquetaNombre = new Label("Nombre:");
-        etiquetaEdad = new Label("Edad:");
-        etiquetaAnos = new Label("Años");
-        etiquetaTratamiento = new Label("Tratamiento:");
 
-        etiquetaNombre.setBounds(10, 50, 200, 20);
-        add(etiquetaNombre);
-        etiquetaEdad.setBounds(10, 80, 100, 20);
-        add(etiquetaEdad);
-        etiquetaAnos.setBounds(155, 80, 100, 20);
-        add(etiquetaAnos);
-        etiquetaTratamiento.setBounds(10, 110, 200, 20);
-        add(etiquetaTratamiento);
     }
 
     public void setActionListener(Controller theController) {
@@ -94,5 +136,7 @@ public class InterfazPrincipal extends Frame implements View {
     public void inicia() {
         setVisible(true);
     }
+
+
 
 }//end class Interfaz
