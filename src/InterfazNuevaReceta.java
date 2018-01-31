@@ -7,6 +7,9 @@ import java.awt.event.*;
 
 
 public class InterfazNuevaReceta extends Frame implements ActionListener {
+
+    Font tipografia = new Font("Helvetica", Font.PLAIN, 14);
+
     Button cancelar;
     Button guardar;
 
@@ -44,6 +47,7 @@ public class InterfazNuevaReceta extends Frame implements ActionListener {
         });
         setResizable(false);
         constuyeComponentes();
+        setFont(tipografia);
     }//end constructor
 
     public void constuyeComponentes() {

@@ -9,6 +9,9 @@ import java.awt.event.WindowEvent;
 
 public class InterfazPrincipal extends Frame implements View {
     //Elementos de la interfaz
+
+    Font tipografia = new Font("Helvetica", Font.PLAIN, 14);
+
     Button anterior;
     Button siguiente;
     Button nuevo;
@@ -47,7 +50,7 @@ public class InterfazPrincipal extends Frame implements View {
             }
         });
         setResizable(false);
-        constuyeComponentes();
+        constuyeComponentes();setFont(tipografia);
     }
 
     public void constuyeComponentes() {
@@ -65,6 +68,7 @@ public class InterfazPrincipal extends Frame implements View {
         siguiente = new Button("Siguiente");
 
         nuevo.setBounds(370, 100, 80, 20);
+        nuevo.setFont(tipografia);
         add(nuevo);
         borrar.setBounds(370, 140, 80, 20);
         add(borrar);
