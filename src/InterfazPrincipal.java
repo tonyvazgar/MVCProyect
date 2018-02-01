@@ -31,6 +31,7 @@ public class InterfazPrincipal extends Frame implements View {
     Label etiquetaSexo;
     Label etiquetaPeso;
     Label etiquetaTemperatura;
+    Label centigrados;
     Label etiquetaEdad;
     Label etiquetaAnos;
     Label etiquetaDiagnostico;
@@ -42,15 +43,10 @@ public class InterfazPrincipal extends Frame implements View {
         setLocationRelativeTo(null);
         setBackground(new Color(255,255,255));
         setLayout(null);
-        //Para hacer que se cierre el programa cuando damos en la equis de la centana
-        addWindowListener(new WindowAdapter(){
-            public void windowClosing(WindowEvent we)
-            {
-                System.exit(0);
-            }
-        });
         setResizable(false);
-        constuyeComponentes();setFont(tipografia);
+        setFont(tipografia);
+        constuyeComponentes();
+        endProgram();
     }
 
     public void constuyeComponentes() {
@@ -84,6 +80,7 @@ public class InterfazPrincipal extends Frame implements View {
         etiquetaSexo = new Label("Sexo:");
         etiquetaPeso = new Label("Peso:");
         etiquetaTemperatura = new Label("Temperatura:");
+        centigrados = new Label("ºC");
         etiquetaEdad = new Label("Edad:");
         etiquetaAnos = new Label("Años");
         etiquetaDiagnostico = new Label("Diagnostico:");
@@ -99,6 +96,8 @@ public class InterfazPrincipal extends Frame implements View {
         add(etiquetaPeso);
         etiquetaTemperatura.setBounds(10, 170, 90, 20);
         add(etiquetaTemperatura);
+        centigrados.setBounds(160,170,50,25);
+        add(centigrados);
         etiquetaEdad.setBounds(10, 200, 90, 20);
         add(etiquetaEdad);
         etiquetaAnos.setBounds(155, 200, 90, 20);
@@ -131,7 +130,7 @@ public class InterfazPrincipal extends Frame implements View {
         peso.setBounds(100, 140, 250, 20);
         peso.setEditable(false);
         add(peso);
-        temperatura.setBounds(100, 170, 250, 20);
+        temperatura.setBounds(100, 170, 50, 20);
         temperatura.setEditable(false);
         add(temperatura);
         edad.setBounds(100, 200, 50, 20);
@@ -152,9 +151,17 @@ public class InterfazPrincipal extends Frame implements View {
         siguiente.addActionListener(theController);
     }//end setActionListener
 
-
     public void inicia() {
         setVisible(true);
+    }
+
+    public void endProgram(){
+        addWindowListener(new WindowAdapter(){
+            public void windowClosing(WindowEvent we)
+            {
+                System.exit(0);
+            }
+        });
     }
 
 

@@ -27,6 +27,7 @@ public class InterfazNuevaReceta extends Frame implements ActionListener {
     Label etiquetaSexo;
     Label etiquetaPeso;
     Label etiquetaTemperatura;
+    Label centigrados;
     Label etiquetaEdad;
     Label etiquetaAnos;
     Label etiquetaDiagnostico;
@@ -66,6 +67,7 @@ public class InterfazNuevaReceta extends Frame implements ActionListener {
         etiquetaSexo = new Label("Sexo:");
         etiquetaPeso = new Label("Peso:");
         etiquetaTemperatura = new Label("Temperatura:");
+        centigrados = new Label("ºC");
         etiquetaEdad = new Label("Edad:");
         etiquetaAnos = new Label("Años");
         etiquetaDiagnostico = new Label("Diagnostico:");
@@ -81,6 +83,8 @@ public class InterfazNuevaReceta extends Frame implements ActionListener {
         add(etiquetaPeso);
         etiquetaTemperatura.setBounds(30, 170, 90, 20);
         add(etiquetaTemperatura);
+        centigrados.setBounds(180,170,50,25);
+        add(centigrados);
         etiquetaEdad.setBounds(30, 200, 90, 20);
         add(etiquetaEdad);
         etiquetaAnos.setBounds(185, 200, 90, 20);
@@ -107,7 +111,7 @@ public class InterfazNuevaReceta extends Frame implements ActionListener {
         add(sexo);
         peso.setBounds(120, 140, 250, 20);
         add(peso);
-        temperatura.setBounds(120, 170, 250, 20);
+        temperatura.setBounds(120, 170, 50, 20);
         add(temperatura);
         edad.setBounds(120, 200, 50, 20);
         add(edad);
