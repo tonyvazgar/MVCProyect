@@ -3,12 +3,15 @@
  */
 
 import java.awt.*;
+import javax.swing.*;
 import java.awt.event.*;
 
 
-public class InterfazNuevaReceta extends Frame implements ActionListener {
+public class InterfazNuevaReceta extends Frame implements ActionListener, ItemListener {
 
     Font tipografia = new Font("Helvetica", Font.PLAIN, 14);
+
+    Mediador mediador;
 
     Button cancelar;
     Button guardar;
@@ -16,6 +19,7 @@ public class InterfazNuevaReceta extends Frame implements ActionListener {
     TextField nombre;
     TextField fecha;
     TextField sexo;
+    JComboBox sexoo;
     TextField peso;
     TextField temperatura;
     TextField edad;
@@ -65,6 +69,7 @@ public class InterfazNuevaReceta extends Frame implements ActionListener {
         etiquetaNombre = new Label("Nombre:");
         etiquetaFecha = new Label("Fecha");
         etiquetaSexo = new Label("Sexo:");
+        sexoo = new JComboBox();
         etiquetaPeso = new Label("Peso:");
         etiquetaTemperatura = new Label("Temperatura:");
         centigrados = new Label("ºC");
@@ -96,7 +101,7 @@ public class InterfazNuevaReceta extends Frame implements ActionListener {
 
         nombre = new TextField();
         fecha = new TextField();
-        sexo = new TextField();
+        //sexo = new TextField();
         peso = new TextField();
         temperatura = new TextField();
         edad = new TextField();
@@ -107,8 +112,11 @@ public class InterfazNuevaReceta extends Frame implements ActionListener {
         add(nombre);
         fecha.setBounds(120, 80, 250, 20);
         add(fecha);
-        sexo.setBounds(120, 110, 250, 20);
-        add(sexo);
+        //sexo.setBounds(120, 110, 250, 20);
+        sexoo.setBounds(120,110,250,30);
+        sexoo.addItem("Masculino");
+        sexoo.addItem("Femenino");
+        add(sexoo);
         peso.setBounds(120, 140, 250, 20);
         add(peso);
         temperatura.setBounds(120, 170, 50, 20);
@@ -128,14 +136,43 @@ public class InterfazNuevaReceta extends Frame implements ActionListener {
             termina();
         }else if (botonAccionado == guardar){
             //Accion para guardar datos
-
+            System.out.println(obtieneDatoDelView().toString() + " " + obtieneDatoDelView().getNombre());
+            termina();
         }//end if
     }//end actionPerformed
+
+
+    public Paciente obtieneDatoDelView() {
+
+        String nombre, fecha, sexo, temperatura, diagnostico, tratamiento;
+        int peso, edad;
+
+        nombre = this.nombre.getText();
+        fecha = this.fecha.getText();
+        //sexo = this.sexo.getText();
+        edad = Integer.parseInt(this.edad.getText());
+        temperatura = this.temperatura.getText();
+        peso = Integer.parseInt(this.peso.getText());
+        diagnostico = this.diagnostico.getText();
+        tratamiento = this.tratamiento.getText();
+
+        return new Paciente(nombre,fecha,"Masculino",edad,temperatura,peso,diagnostico,temperatura);
+    }//end obtieneDatoDelView
 
     public void inicia() {
         setVisible(true);
     }//end inicia
     public void termina(){
         setVisible(false);
+    }
+
+    @Override
+    public void itemStateChanged(ItemEvent e) {
+        /*
+        if (e.getSource()==combo1) {
+            String seleccionado=(String)combo1.getSelectedItem();
+            setTitle(seleccionado);
+        }
+         */
     }
 }//end class Interfaz

@@ -65,7 +65,9 @@ public class Datos extends LinkedList<Paciente> implements Model {
 
     @Override
     public void eliminaDatosDeLaEstructura(int indice) {
-
+        if( indice < size() && indice >= 0) {
+            remove(indice);
+        }
     }
 
     @Override

@@ -9,6 +9,7 @@ import java.awt.event.ActionEvent;
 public class Mediador implements Controller {
 
     InterfazPrincipal view;
+    InterfazNuevaReceta nuevaReceta;
     Datos model;
     int indice = 0;
 
@@ -73,34 +74,22 @@ public class Mediador implements Controller {
 
     public void solicitaActualizacionDelModel(String accion) {
 
-
+        if(accion.equals("Borrar")){
+            model.eliminaDatosDeLaEstructura(indice);
+            if(indice == model.size()-1){
+                indice = 0;
+            }else {
+                indice = indice + 1;
+            }
+            actualizaElView();
+        }else if(accion.equals("Guardar")){
+            /*
+            dato = obtieneDatoDelView();
+            indice = indice + 1;
+            model.agregaDatosALaEstructura(indice, dato);
+             */
+        }
     }//end actualizaElModel
-
-
-
-/*
-    ///////// Metodos de control  /////////////
-
-    private void decrementaApuntador() {
-        if(indice == 0)
-            indice = model.size()-1;
-        else
-            indice = indice - 1;
-        //end if else
-    }//end decrementaApuntador
-
-
-    private void incrementaApuntador() {
-        if(indice == model.size()-1)
-            indice = 0;
-        else
-            indice = indice  + 1;
-        //end if else
-    }//end incrementaApuntador
-
-
-    */
-
 
     public void actionPerformed(ActionEvent evento) {
 
@@ -109,17 +98,27 @@ public class Mediador implements Controller {
 
         switch (botonAccionado.getLabel()){
             case "Nuevo":
-                InterfazNuevaReceta nuevaReceta = new InterfazNuevaReceta();
+                nuevaReceta = new InterfazNuevaReceta();
                 nuevaReceta.inicia();
                 break;
             case "Borrar":
-                view.tratamiento.setText("ACKUBIKIBISISAIS");
+                solicitaActualizacionDelModel("Borrar");
                 break;
             case "Anterior":
-                view.tratamiento.setText("HOLAAAAA");
+                if(indice == 0) {
+                    indice = model.size() - 1;
+                }else {
+                    indice = indice - 1;
+                }
+                actualizaElView();
                 break;
             case "Siguiente":
-                view.tratamiento.setText("KEPEXSDS");
+                if(indice == model.size()-1){
+                    indice = 0;
+                }else {
+                    indice = indice + 1;
+                }
+                actualizaElView();
                 break;
         }
     }
