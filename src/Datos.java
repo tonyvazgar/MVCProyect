@@ -20,8 +20,7 @@ public class Datos extends LinkedList<Paciente> implements Model {
         int numeroDeRegistros;
         int i;
         Paciente paciente;
-        String nombre, fecha, sexo, temperatura, diagnostico, tratamiento;
-        int edad, peso;
+        String nombre, fecha, sexo, temperatura, diagnostico, tratamiento, peso, edad;
         datos = new SequentialFile("/Users/tony/IdeaProjects/MVCProyect/src","recetas","txt");
         datos.open();
         numeroDeLineas = datos.getNumberOfLines();
@@ -32,13 +31,13 @@ public class Datos extends LinkedList<Paciente> implements Model {
             nombre = datos.readString();
             fecha = datos.readString();
             sexo = datos.readString();
-            peso = datos.readInt();
+            peso = datos.readString();
             temperatura = datos.readString();
-            edad = datos.readInt();
+            edad = datos.readString();
             diagnostico = datos.readString();
             tratamiento = datos.readString();
             paciente = new Paciente(nombre, fecha, sexo, peso, temperatura, edad, diagnostico, tratamiento);
-            System.out.println(paciente.toString() + " " + paciente.getNombre() + " "+ paciente.getTemperatura() + " " + paciente.getTratamiento());
+            //System.out.println(paciente.toString());
             add(paciente);
             i = i + 1;
         }//end while
@@ -47,15 +46,29 @@ public class Datos extends LinkedList<Paciente> implements Model {
 
     @Override
     public void salvaDatosDeLaEstructuraAlRepositorio() {
-
+        int reg;
+        datos = new SequentialFile("/Users/tony/IdeaProjects/MVCProyect/src","recetas","txt");
+        datos.open();
+        System.err.println("TAMAÑO ->" + size());
+        reg = 0;
+        while ( reg < size()){
+            System.err.println("REG VA EN: "+reg);
+            datos.writeString(get(reg).getNombre());
+            datos.writeString(get(reg).getFecha());
+            datos.writeString(get(reg).getSexo());
+            datos.writeString(get(reg).getPeso());
+            datos.writeString(get(reg).getTemperatura());
+            datos.writeString(get(reg).getEdad());
+            datos.writeString(get(reg).getDiagnostico());
+            datos.writeString(get(reg).getTratamiento());
+            reg = reg + 1;
+        }
     }
 
     @Override
     public void agregaDatosALaEstructura(int indice, Object unDato) {
-        Paciente dato;
-        //
-        dato = (Paciente) unDato;
-        add(indice, dato);
+        Paciente dato = (Paciente) unDato;
+        add(dato);
     }
 
     @Override
@@ -72,7 +85,7 @@ public class Datos extends LinkedList<Paciente> implements Model {
 
     @Override
     public void ordenaLaEstructura() {
-
+        Collections.sort(this);
     }
 
     @Override
@@ -83,7 +96,6 @@ public class Datos extends LinkedList<Paciente> implements Model {
     @Override
     public boolean hayDatos() {
         int tam = size();
-
         if (tam > 0) {
             return true;
         } else {

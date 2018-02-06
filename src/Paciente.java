@@ -1,14 +1,14 @@
-public class Paciente {
+public class Paciente implements  Comparable<Paciente>{
     private String nombre;
     private String fecha;
     private String sexo;
-    private int peso;
+    private String peso;
     private String temperatura;
-    private int edad;
+    private String edad;
     private String diagnostico;
     private String tratamiento;
 
-    public Paciente(String nombre, String fecha, String sexo, int peso, String temperatura, int edad, String diagnostico, String tratamiento){
+    public Paciente(String nombre, String fecha, String sexo, String peso, String temperatura, String edad, String diagnostico, String tratamiento){
         this.nombre = nombre;
         this.fecha = fecha;
         this.sexo = sexo;
@@ -43,11 +43,11 @@ public class Paciente {
         this.sexo = sexo;
     }
 
-    public int getPeso() {
+    public String getPeso() {
         return peso;
     }
 
-    public void setPeso(int peso) {
+    public void setPeso(String  peso) {
         this.peso = peso;
     }
 
@@ -59,11 +59,11 @@ public class Paciente {
         this.temperatura = temperatura;
     }
 
-    public int getEdad() {
+    public String getEdad() {
         return edad;
     }
 
-    public void setEdad(int edad) {
+    public void setEdad(String edad) {
         this.edad = edad;
     }
 
@@ -81,5 +81,15 @@ public class Paciente {
 
     public void setTratamiento(String tratamiento) {
         this.tratamiento = tratamiento;
+    }
+
+    @Override
+    public int compareTo(Paciente o) {
+        String op = o.getNombre();
+        return nombre.compareTo(op);
+    }
+
+    public String  toString(){
+        return nombre + " | " + fecha + " | " + sexo + " | " + peso + " | " + temperatura + " | " + edad + " | " + diagnostico + " | " + tratamiento;
     }
 }

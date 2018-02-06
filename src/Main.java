@@ -16,7 +16,7 @@ public class Main {
         view2 = new InterfazNuevaReceta();
 
         // Se crea el controller,
-        controller = new Mediador(model, view);
+        controller = new Mediador(model, view, view2);
         // y se asocia al view.
         view.setActionListener(controller);
         // se inicia el contenido del view

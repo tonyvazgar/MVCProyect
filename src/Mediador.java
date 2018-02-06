@@ -10,16 +10,23 @@ public class Mediador implements Controller {
 
     InterfazPrincipal view;
     InterfazNuevaReceta nuevaReceta;
+    Paciente paciente;
+    Boolean agregado;
     Datos model;
-    int indice = 0;
+    int indice;
 
 
-    public Mediador(Datos model, InterfazPrincipal view) {
+    public Mediador(Datos model, InterfazPrincipal view, InterfazNuevaReceta nuevaReceta) {
         this.model = model;
+        indice = 0;
+        agregado = false;
         this.view = view;
+        this.nuevaReceta = nuevaReceta;
     }//end constructor
 
+    public Mediador(){
 
+    }
     ///////// Metodos de obtencion de datos del Model /////////////
 
     public Paciente obtieneDatoDelModel(int indice) {
@@ -36,15 +43,15 @@ public class Mediador implements Controller {
 
     public Paciente obtieneDatoDelView() {
 
-        String nombre, fecha, sexo, temperatura, diagnostico, tratamiento;
-        int peso, edad;
+        String nombre, fecha, sexo, temperatura, diagnostico, tratamiento, edad, peso;
+
 
         nombre = view.nombre.getText();
         fecha = view.fecha.getText();
         sexo = view.sexo.getText();
-        edad = Integer.parseInt(view.edad.getText());
+        edad = view.edad.getText();
         temperatura = view.temperatura.getText();
-        peso = Integer.parseInt(view.peso.getText());
+        peso = view.peso.getText();
         diagnostico = view.diagnostico.getText();
         tratamiento = view.tratamiento.getText();
 
@@ -53,17 +60,27 @@ public class Mediador implements Controller {
 
 
     public void actualizaElView() {
-
         String nombre, fecha, sexo, temperatura, diagnostico, tratamiento;
         int peso, edad;
-        Paciente paciente = obtieneDatoDelModel(indice);
-        if (paciente != null){
+        paciente = obtieneDatoDelModel(indice);
+        System.err.println(paciente.toString() + "***" + paciente.getNombre());
+        if (paciente != null && !agregado){
             view.nombre.setText(paciente.getNombre());
             view.fecha.setText(paciente.getFecha());
             view.sexo.setText(paciente.getSexo());
-            view.edad.setText(Integer.toString(paciente.getEdad()));
+            view.edad.setText(paciente.getEdad());
             view.temperatura.setText(paciente.getTemperatura());
-            view.peso.setText(Integer.toString(paciente.getPeso()));
+            view.peso.setText(paciente.getPeso());
+            view.diagnostico.setText(paciente.getDiagnostico());
+            view.tratamiento.setText(paciente.getTratamiento());
+        }else if(agregado){
+            view = new InterfazPrincipal();
+            view.nombre.setText(paciente.getNombre());
+            view.fecha.setText(paciente.getFecha());
+            view.sexo.setText(paciente.getSexo());
+            view.edad.setText(paciente.getEdad());
+            view.temperatura.setText(paciente.getTemperatura());
+            view.peso.setText(paciente.getPeso());
             view.diagnostico.setText(paciente.getDiagnostico());
             view.tratamiento.setText(paciente.getTratamiento());
         }
@@ -82,14 +99,21 @@ public class Mediador implements Controller {
                 indice = indice + 1;
             }
             actualizaElView();
-        }else if(accion.equals("Guardar")){
-            /*
-            dato = obtieneDatoDelView();
-            indice = indice + 1;
-            model.agregaDatosALaEstructura(indice, dato);
-             */
         }
     }//end actualizaElModel
+
+
+    public void guadar(Paciente nuevoPaciente){
+        this.paciente = nuevoPaciente;
+        model = new Datos();
+        indice = indice + 1;
+        System.err.println(indice);
+        model.agregaDatosALaEstructura(indice, this.paciente);
+        agregado = true;
+        actualizaElView();
+        model.salvaDatosDeLaEstructuraAlRepositorio();
+    }
+
 
     public void actionPerformed(ActionEvent evento) {
 
@@ -98,7 +122,6 @@ public class Mediador implements Controller {
 
         switch (botonAccionado.getLabel()){
             case "Nuevo":
-                nuevaReceta = new InterfazNuevaReceta();
                 nuevaReceta.inicia();
                 break;
             case "Borrar":

@@ -18,7 +18,6 @@ public class InterfazNuevaReceta extends Frame implements ActionListener, ItemLi
 
     TextField nombre;
     TextField fecha;
-    TextField sexo;
     JComboBox sexoo;
     TextField peso;
     TextField temperatura;
@@ -69,7 +68,6 @@ public class InterfazNuevaReceta extends Frame implements ActionListener, ItemLi
         etiquetaNombre = new Label("Nombre:");
         etiquetaFecha = new Label("Fecha");
         etiquetaSexo = new Label("Sexo:");
-        sexoo = new JComboBox();
         etiquetaPeso = new Label("Peso:");
         etiquetaTemperatura = new Label("Temperatura:");
         centigrados = new Label("ºC");
@@ -101,7 +99,7 @@ public class InterfazNuevaReceta extends Frame implements ActionListener, ItemLi
 
         nombre = new TextField();
         fecha = new TextField();
-        //sexo = new TextField();
+        sexoo = new JComboBox();
         peso = new TextField();
         temperatura = new TextField();
         edad = new TextField();
@@ -113,9 +111,9 @@ public class InterfazNuevaReceta extends Frame implements ActionListener, ItemLi
         fecha.setBounds(120, 80, 250, 20);
         add(fecha);
         //sexo.setBounds(120, 110, 250, 20);
-        sexoo.setBounds(120,110,250,30);
         sexoo.addItem("Masculino");
         sexoo.addItem("Femenino");
+        sexoo.setBounds(120,110,250,30);
         add(sexoo);
         peso.setBounds(120, 140, 250, 20);
         add(peso);
@@ -134,9 +132,12 @@ public class InterfazNuevaReceta extends Frame implements ActionListener, ItemLi
         System.out.println(botonAccionado);
         if(botonAccionado == cancelar) {
             termina();
-        }else if (botonAccionado == guardar){
-            //Accion para guardar datos
-            System.out.println(obtieneDatoDelView().toString() + " " + obtieneDatoDelView().getNombre());
+        }
+        if (botonAccionado == guardar){
+            mediador = new Mediador();
+            Paciente dato = obtieneDatoDelView();
+            System.out.println(dato.toString());
+            mediador.guadar(dato);
             termina();
         }//end if
     }//end actionPerformed
@@ -144,19 +145,19 @@ public class InterfazNuevaReceta extends Frame implements ActionListener, ItemLi
 
     public Paciente obtieneDatoDelView() {
 
-        String nombre, fecha, sexo, temperatura, diagnostico, tratamiento;
-        int peso, edad;
+        String nombre, fecha, sexo, temperatura, diagnostico, tratamiento, edad, peso;
+
 
         nombre = this.nombre.getText();
         fecha = this.fecha.getText();
-        //sexo = this.sexo.getText();
-        edad = Integer.parseInt(this.edad.getText());
+        sexo = this.sexoo.getItemAt(sexoo.getSelectedIndex()).toString();
+        edad = this.edad.getText();
         temperatura = this.temperatura.getText();
-        peso = Integer.parseInt(this.peso.getText());
+        peso = this.peso.getText();
         diagnostico = this.diagnostico.getText();
         tratamiento = this.tratamiento.getText();
 
-        return new Paciente(nombre,fecha,"Masculino",edad,temperatura,peso,diagnostico,temperatura);
+        return new Paciente(nombre,fecha,sexo,peso,temperatura,edad,diagnostico,tratamiento);
     }//end obtieneDatoDelView
 
     public void inicia() {
@@ -168,11 +169,6 @@ public class InterfazNuevaReceta extends Frame implements ActionListener, ItemLi
 
     @Override
     public void itemStateChanged(ItemEvent e) {
-        /*
-        if (e.getSource()==combo1) {
-            String seleccionado=(String)combo1.getSelectedItem();
-            setTitle(seleccionado);
-        }
-         */
+
     }
 }//end class Interfaz
