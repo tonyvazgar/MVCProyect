@@ -135,7 +135,6 @@ public class InterfazNuevaReceta extends Frame implements ActionListener, ItemLi
         if (botonAccionado == agregar){
 
             Paciente dato = obtieneDatoDelView();
-            //System.out.println(dato.toString());
             mediador.guadar(dato);
             termina();
         }//end if

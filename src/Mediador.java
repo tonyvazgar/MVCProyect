@@ -61,9 +61,12 @@ public class Mediador implements Controller {
 
 
     public void actualizaElView() {
+        model.ordenaLaEstructura();
         String nombre, fecha, sexo, temperatura, diagnostico, tratamiento;
         int peso, edad;
+
         paciente = obtieneDatoDelModel(indice);
+
         System.out.println(paciente.getNombre() + "->"+indice);
         if (paciente != null) {
             view.nombre.setText(paciente.getNombre());
@@ -76,6 +79,22 @@ public class Mediador implements Controller {
             view.tratamiento.setText(paciente.getTratamiento());
         }
     }//end actualizaElView
+
+    private void decrementaApuntador() {
+        if(indice == 0)
+            indice = model.size()-1;
+        else
+            indice = indice - 1;
+    }//end decrementaApuntador
+
+
+    private void incrementaApuntador() {
+        if(indice == model.size()-1)
+            indice = 0;
+        else
+            indice = indice  + 1;
+    }//end incrementaApuntador
+
 
 
     ///////// Metodos de actualizacion del Model /////////////
@@ -95,11 +114,8 @@ public class Mediador implements Controller {
 
 
     public void guadar(Paciente nuevoPaciente){
-        this.paciente = nuevoPaciente;
-        //model = new Datos();
         indice = indice + 1;
-        //System.err.println(indice);
-        model.agregaDatosALaEstructura(indice, this.paciente);
+        model.agregaDatosALaEstructura(indice, nuevoPaciente);
         actualizaElView();
         //model.salvaDatosDeLaEstructuraAlRepositorio();
         //System.err.println(indice);
@@ -109,7 +125,7 @@ public class Mediador implements Controller {
     public void actionPerformed(ActionEvent evento) {
 
         Button botonAccionado = (Button) evento.getSource();
-        System.out.println(botonAccionado.getLabel());
+        //System.out.println(botonAccionado.getLabel());
 
         if(botonAccionado == view.nuevo) {
             InterfazNuevaReceta nr = new InterfazNuevaReceta();
@@ -120,23 +136,14 @@ public class Mediador implements Controller {
             solicitaActualizacionDelModel("Borrar");
         }
         if(botonAccionado == view.anterior) {
-            if(indice == 0) {
-                indice = model.size() - 1;
-            }else {
-                indice = indice - 1;
-            }
+            decrementaApuntador();
             actualizaElView();
         }
         if(botonAccionado == view.siguiente) {
-            if(indice == model.size()-1){
-                indice = 0;
-            }else {
-                indice = indice + 1;
-            }
+            incrementaApuntador();
             actualizaElView();
         }
         if(botonAccionado == view.guardar){
-            System.out.println("***HOLA***");
             model.salvaDatosDeLaEstructuraAlRepositorio();
         }
     }

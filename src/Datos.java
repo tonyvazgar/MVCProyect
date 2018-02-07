@@ -21,7 +21,7 @@ public class Datos extends LinkedList<Paciente> implements Model {
         int i;
         Paciente paciente;
         String nombre, fecha, sexo, temperatura, diagnostico, tratamiento, peso, edad;
-        datos = new SequentialFile("/Users/tony/IdeaProjects/MVCProyect/src","recetas","txt");
+        datos = new SequentialFile("./src","recetas","txt");
         datos.open();
         numeroDeLineas = datos.getNumberOfLines();
         numeroDeRegistros = numeroDeLineas / 8;
@@ -46,8 +46,9 @@ public class Datos extends LinkedList<Paciente> implements Model {
     @Override
     public void salvaDatosDeLaEstructuraAlRepositorio() {
         int reg;
-        datos = new SequentialFile("/Users/tony/IdeaProjects/MVCProyect/src","recetas","txt");
-        datos.open();
+        datos = new SequentialFile("./src","recetas","txt");
+        datos.create();
+
         System.err.println("TAMAÑO ->" + size());
         reg = 0;
         while ( reg < size()){
@@ -59,7 +60,7 @@ public class Datos extends LinkedList<Paciente> implements Model {
             datos.writeString(get(reg).getTemperatura());
             datos.writeString(get(reg).getEdad());
             datos.writeString(get(reg).getDiagnostico());
-            datos.writeString(get(reg).getTratamiento());
+            datos.writeString(get(reg).getTratamiento().replace("\n" , " "));
             reg = reg + 1;
         }
     }

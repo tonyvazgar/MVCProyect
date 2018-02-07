@@ -60,7 +60,7 @@ public class InterfazPrincipal extends Frame implements View {
     }
 
     public void ponerBotones(){
-        nuevo = new Button("Agregar");
+        nuevo = new Button("Nueva");
         borrar = new Button("Borrar");
         anterior = new Button("Anterior");
         siguiente = new Button("Siguiente");

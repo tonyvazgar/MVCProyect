@@ -333,7 +333,7 @@ public class SequentialFile
             firstLineHasBeenWritten = true;
         //end else
         writeLine(aString);
-        writeLine(""+newLine);
+        //writeLine(""+newLine);
         eof = false;
     }//end writeString
 
