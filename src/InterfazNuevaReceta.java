@@ -14,7 +14,7 @@ public class InterfazNuevaReceta extends Frame implements ActionListener, ItemLi
     Mediador mediador;
 
     Button cancelar;
-    Button guardar;
+    Button agregar;
 
     TextField nombre;
     TextField fecha;
@@ -56,14 +56,14 @@ public class InterfazNuevaReceta extends Frame implements ActionListener, ItemLi
 
     public void constuyeComponentes() {
         cancelar = new Button("Cancelar");
-        guardar = new Button("Guardar");
+        agregar = new Button("Agregar");
 
         cancelar.setBounds(120, getHeight()-50, 80, 20);
         add(cancelar);
-        guardar.setBounds(290, getHeight()-50, 80, 20);
-        add(guardar);
+        agregar.setBounds(290, getHeight()-50, 80, 20);
+        add(agregar);
         cancelar.addActionListener(this::actionPerformed);
-        guardar.addActionListener(this::actionPerformed);
+        agregar.addActionListener(this::actionPerformed);
 
         etiquetaNombre = new Label("Nombre:");
         etiquetaFecha = new Label("Fecha");
@@ -129,14 +129,13 @@ public class InterfazNuevaReceta extends Frame implements ActionListener, ItemLi
 
     public void actionPerformed(ActionEvent evento) {
         Button botonAccionado = (Button) evento.getSource();
-        System.out.println(botonAccionado);
         if(botonAccionado == cancelar) {
             termina();
         }
-        if (botonAccionado == guardar){
-            mediador = new Mediador();
+        if (botonAccionado == agregar){
+
             Paciente dato = obtieneDatoDelView();
-            System.out.println(dato.toString());
+            //System.out.println(dato.toString());
             mediador.guadar(dato);
             termina();
         }//end if

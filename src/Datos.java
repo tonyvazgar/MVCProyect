@@ -37,7 +37,6 @@ public class Datos extends LinkedList<Paciente> implements Model {
             diagnostico = datos.readString();
             tratamiento = datos.readString();
             paciente = new Paciente(nombre, fecha, sexo, peso, temperatura, edad, diagnostico, tratamiento);
-            //System.out.println(paciente.toString());
             add(paciente);
             i = i + 1;
         }//end while
@@ -52,8 +51,8 @@ public class Datos extends LinkedList<Paciente> implements Model {
         System.err.println("TAMAÑO ->" + size());
         reg = 0;
         while ( reg < size()){
-            System.err.println("REG VA EN: "+reg);
             datos.writeString(get(reg).getNombre());
+            System.err.println(get(reg).getNombre() +" -> " + reg);
             datos.writeString(get(reg).getFecha());
             datos.writeString(get(reg).getSexo());
             datos.writeString(get(reg).getPeso());
@@ -72,8 +71,12 @@ public class Datos extends LinkedList<Paciente> implements Model {
     }
 
     @Override
-    public void modificaDatosEnLaEstructura(int indice, Object dato) {
-
+    public void modificaDatosEnLaEstructura(int indice, Object unDato) {
+        Paciente dato;
+        //
+        dato = (Paciente) unDato;
+        remove(indice);
+        add(indice, dato);
     }
 
     @Override

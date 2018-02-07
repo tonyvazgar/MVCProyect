@@ -16,6 +16,8 @@ public class InterfazPrincipal extends Frame implements View {
     Button siguiente;
     Button nuevo;
     Button borrar;
+    Button guardar;
+
 
     TextField nombre;
     TextField fecha;
@@ -58,10 +60,11 @@ public class InterfazPrincipal extends Frame implements View {
     }
 
     public void ponerBotones(){
-        nuevo = new Button("Nuevo");
+        nuevo = new Button("Agregar");
         borrar = new Button("Borrar");
         anterior = new Button("Anterior");
         siguiente = new Button("Siguiente");
+        guardar = new Button("Guardar");
 
         nuevo.setBounds(370, 100, 80, 20);
         nuevo.setFont(tipografia);
@@ -72,6 +75,8 @@ public class InterfazPrincipal extends Frame implements View {
         add(anterior);
         siguiente.setBounds(370, 280, 80, 20);
         add(siguiente);
+        guardar.setBounds(370,340,80,20);
+        add(guardar);
     }
 
     public void ponerEtiquetas(){
@@ -149,6 +154,7 @@ public class InterfazPrincipal extends Frame implements View {
         borrar.addActionListener(theController);
         anterior.addActionListener(theController);
         siguiente.addActionListener(theController);
+        guardar.addActionListener(theController);
     }//end setActionListener
 
     public void inicia() {

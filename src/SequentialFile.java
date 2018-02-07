@@ -313,7 +313,7 @@ public class SequentialFile
             }//end try
             catch(Exception excepcion)
             {
-                System.out.println(excepcion);
+                System.out.println(excepcion +"" + i);
             }//end catch
             i = i + 1;
         }//end while

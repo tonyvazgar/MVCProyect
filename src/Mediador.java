@@ -2,6 +2,8 @@
  * Created by TonyVazgar on 1/28/18.
  */
 
+import com.sun.deploy.net.proxy.pac.PACFunctions;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 
@@ -11,7 +13,6 @@ public class Mediador implements Controller {
     InterfazPrincipal view;
     InterfazNuevaReceta nuevaReceta;
     Paciente paciente;
-    Boolean agregado;
     Datos model;
     int indice;
 
@@ -19,7 +20,6 @@ public class Mediador implements Controller {
     public Mediador(Datos model, InterfazPrincipal view, InterfazNuevaReceta nuevaReceta) {
         this.model = model;
         indice = 0;
-        agregado = false;
         this.view = view;
         this.nuevaReceta = nuevaReceta;
     }//end constructor
@@ -30,11 +30,9 @@ public class Mediador implements Controller {
     ///////// Metodos de obtencion de datos del Model /////////////
 
     public Paciente obtieneDatoDelModel(int indice) {
-        Paciente dato;
+        Paciente dato = null;
         if(model.hayDatos()){
             dato = model.get(indice);
-        }else {
-            dato = null;
         }
         return dato;
     }//end obtieneDatoDelModel
@@ -42,6 +40,7 @@ public class Mediador implements Controller {
     ///////// Metodos de obtencion de datos del View /////////////
 
     public Paciente obtieneDatoDelView() {
+        Paciente paciente;
 
         String nombre, fecha, sexo, temperatura, diagnostico, tratamiento, edad, peso;
 
@@ -55,7 +54,9 @@ public class Mediador implements Controller {
         diagnostico = view.diagnostico.getText();
         tratamiento = view.tratamiento.getText();
 
-        return new Paciente(nombre,fecha,sexo,edad,temperatura,peso,diagnostico,temperatura);
+        paciente = new Paciente(nombre,fecha,sexo,peso,temperatura,edad,diagnostico,tratamiento);
+
+        return paciente;
     }//end obtieneDatoDelView
 
 
@@ -63,18 +64,8 @@ public class Mediador implements Controller {
         String nombre, fecha, sexo, temperatura, diagnostico, tratamiento;
         int peso, edad;
         paciente = obtieneDatoDelModel(indice);
-        System.err.println(paciente.toString() + "***" + paciente.getNombre());
-        if (paciente != null && !agregado){
-            view.nombre.setText(paciente.getNombre());
-            view.fecha.setText(paciente.getFecha());
-            view.sexo.setText(paciente.getSexo());
-            view.edad.setText(paciente.getEdad());
-            view.temperatura.setText(paciente.getTemperatura());
-            view.peso.setText(paciente.getPeso());
-            view.diagnostico.setText(paciente.getDiagnostico());
-            view.tratamiento.setText(paciente.getTratamiento());
-        }else if(agregado){
-            view = new InterfazPrincipal();
+        System.out.println(paciente.getNombre() + "->"+indice);
+        if (paciente != null) {
             view.nombre.setText(paciente.getNombre());
             view.fecha.setText(paciente.getFecha());
             view.sexo.setText(paciente.getSexo());
@@ -105,13 +96,13 @@ public class Mediador implements Controller {
 
     public void guadar(Paciente nuevoPaciente){
         this.paciente = nuevoPaciente;
-        model = new Datos();
+        //model = new Datos();
         indice = indice + 1;
-        System.err.println(indice);
+        //System.err.println(indice);
         model.agregaDatosALaEstructura(indice, this.paciente);
-        agregado = true;
         actualizaElView();
-        model.salvaDatosDeLaEstructuraAlRepositorio();
+        //model.salvaDatosDeLaEstructuraAlRepositorio();
+        //System.err.println(indice);
     }
 
 
@@ -120,29 +111,33 @@ public class Mediador implements Controller {
         Button botonAccionado = (Button) evento.getSource();
         System.out.println(botonAccionado.getLabel());
 
-        switch (botonAccionado.getLabel()){
-            case "Nuevo":
-                nuevaReceta.inicia();
-                break;
-            case "Borrar":
-                solicitaActualizacionDelModel("Borrar");
-                break;
-            case "Anterior":
-                if(indice == 0) {
-                    indice = model.size() - 1;
-                }else {
-                    indice = indice - 1;
-                }
-                actualizaElView();
-                break;
-            case "Siguiente":
-                if(indice == model.size()-1){
-                    indice = 0;
-                }else {
-                    indice = indice + 1;
-                }
-                actualizaElView();
-                break;
+        if(botonAccionado == view.nuevo) {
+            InterfazNuevaReceta nr = new InterfazNuevaReceta();
+            nr.mediador = this;
+            nr.inicia();
+        }
+        if(botonAccionado == view.borrar) {
+            solicitaActualizacionDelModel("Borrar");
+        }
+        if(botonAccionado == view.anterior) {
+            if(indice == 0) {
+                indice = model.size() - 1;
+            }else {
+                indice = indice - 1;
+            }
+            actualizaElView();
+        }
+        if(botonAccionado == view.siguiente) {
+            if(indice == model.size()-1){
+                indice = 0;
+            }else {
+                indice = indice + 1;
+            }
+            actualizaElView();
+        }
+        if(botonAccionado == view.guardar){
+            System.out.println("***HOLA***");
+            model.salvaDatosDeLaEstructuraAlRepositorio();
         }
     }
 }//end class Mediator
