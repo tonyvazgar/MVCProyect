@@ -49,7 +49,6 @@ public class Datos extends LinkedList<Paciente> implements Model {
         datos = new SequentialFile("./src","recetas","txt");
         datos.create();
 
-        System.err.println("TAMAÑO ->" + size());
         reg = 0;
         while ( reg < size()){
             datos.writeString(get(reg).getNombre());

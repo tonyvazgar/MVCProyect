@@ -67,7 +67,6 @@ public class Mediador implements Controller {
 
         paciente = obtieneDatoDelModel(indice);
 
-        System.out.println(paciente.getNombre() + "->"+indice);
         if (paciente != null) {
             view.nombre.setText(paciente.getNombre());
             view.fecha.setText(paciente.getFecha());
