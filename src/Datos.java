@@ -52,7 +52,6 @@ public class Datos extends LinkedList<Paciente> implements Model {
         reg = 0;
         while ( reg < size()){
             datos.writeString(get(reg).getNombre());
-            System.err.println(get(reg).getNombre() +" -> " + reg);
             datos.writeString(get(reg).getFecha());
             datos.writeString(get(reg).getSexo());
             datos.writeString(get(reg).getPeso());
