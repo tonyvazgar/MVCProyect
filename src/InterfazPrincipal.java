@@ -8,7 +8,10 @@ import java.awt.event.WindowEvent;
 
 
 public class InterfazPrincipal extends Frame implements View {
-    //Elementos de la interfaz
+    
+    /* ---------------------------------------------- *
+     *           Elementos de la interfaz             *
+     * ---------------------------------------------- */
 
     Font tipografia = new Font("Helvetica", Font.PLAIN, 14);
 
@@ -51,14 +54,28 @@ public class InterfazPrincipal extends Frame implements View {
         endProgram();
     }
 
+    /* ---------------------------------------------- *
+     *           Metodos del la clase view            *
+     * ---------------------------------------------- */
+    
     public void constuyeComponentes() {
-
         ponerBotones();
         ponerEtiquetas();
         ponerCasillas();
-
     }
 
+    public void setActionListener(Controller theController) {
+        nuevo.addActionListener(theController);
+        borrar.addActionListener(theController);
+        anterior.addActionListener(theController);
+        siguiente.addActionListener(theController);
+        guardar.addActionListener(theController);
+    }
+    
+    /* ---------------------------------------------- *
+     *               Metodos propios                  *
+     * ---------------------------------------------- */
+    
     public void ponerBotones(){
         nuevo = new Button("Nueva");
         borrar = new Button("Borrar");
@@ -149,14 +166,6 @@ public class InterfazPrincipal extends Frame implements View {
         add(tratamiento);
     }
 
-    public void setActionListener(Controller theController) {
-        nuevo.addActionListener(theController);
-        borrar.addActionListener(theController);
-        anterior.addActionListener(theController);
-        siguiente.addActionListener(theController);
-        guardar.addActionListener(theController);
-    }
-
     public void inicia() {
         setVisible(true);
     }
@@ -169,5 +178,4 @@ public class InterfazPrincipal extends Frame implements View {
             }
         });
     }
-
 }

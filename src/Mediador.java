@@ -24,6 +24,10 @@ public class Mediador implements Controller {
     }
 
     public Mediador(){}
+    
+    /* ---------------------------------------------- *
+     *        Metodos del la clase controller         *
+     * ---------------------------------------------- */
 
     public Paciente obtieneDatoDelModel(int indice) {
         Paciente dato = null;
@@ -69,34 +73,14 @@ public class Mediador implements Controller {
             view.tratamiento.setText(paciente.getTratamiento());
         }
     }
-
-    private void decrementaApuntador() {
-        if(indice == 0)
-            indice = model.size()-1;
-        else
-            indice = indice - 1;
-    }
-
-    private void incrementaApuntador() {
-        if(indice == model.size()-1)
-            indice = 0;
-        else
-            indice = indice  + 1;
-    }
-
+    
     public void solicitaActualizacionDelModel(String accion) {
-
+        
         if(accion.equals("Borrar")){
             model.eliminaDatosDeLaEstructura(indice);
             decrementaApuntador();
             actualizaElView();
         }
-    }
-
-    public void guadar(Paciente nuevoPaciente){
-        indice = indice + 1;
-        model.agregaDatosALaEstructura(indice, nuevoPaciente);
-        actualizaElView();
     }
 
     public void actionPerformed(ActionEvent evento) {
@@ -115,13 +99,36 @@ public class Mediador implements Controller {
             decrementaApuntador();
             actualizaElView();
         }else if(botonAccionado == view.siguiente) {
-            System.out.println("Tamaño es: " + model.size());
             incrementaApuntador();
             actualizaElView();
         }else if(botonAccionado == view.guardar){
             model.salvaDatosDeLaEstructuraAlRepositorio();
             mensaje("Guardado");
         }
+    }
+    
+    /* ---------------------------------------------- *
+     *              Metodos del propios               *
+     * ---------------------------------------------- */
+    
+    private void decrementaApuntador() {
+        if(indice == 0)
+            indice = model.size()-1;
+        else
+            indice = indice - 1;
+    }
+    
+    private void incrementaApuntador() {
+        if(indice == model.size()-1)
+            indice = 0;
+        else
+            indice = indice  + 1;
+    }
+    
+    public void guadar(Paciente nuevoPaciente){
+        indice = indice + 1;
+        model.agregaDatosALaEstructura(indice, nuevoPaciente);
+        actualizaElView();
     }
 
     private void mensaje(String mensaje){

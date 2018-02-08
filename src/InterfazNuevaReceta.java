@@ -8,11 +8,14 @@ import java.awt.event.*;
 
 
 public class InterfazNuevaReceta extends Frame implements ActionListener {
+    
+    /* ---------------------------------------------- *
+     *           Elementos de la interfaz             *
+     * ---------------------------------------------- */
 
     Font tipografia = new Font("Helvetica", Font.PLAIN, 14);
 
     Mediador mediador;
-
     Button cancelar;
     Button agregar;
 
@@ -42,15 +45,10 @@ public class InterfazNuevaReceta extends Frame implements ActionListener {
         setLocationRelativeTo(null);
         setBackground(new Color(255,255,255));
         setLayout(null);
-        addWindowListener(new WindowAdapter(){
-            public void windowClosing(WindowEvent we)
-            {
-                termina();
-            }
-        });
         setResizable(false);
         constuyeComponentes();
         setFont(tipografia);
+        endProgram();
     }
 
     public void constuyeComponentes() {
@@ -160,6 +158,15 @@ public class InterfazNuevaReceta extends Frame implements ActionListener {
 
     public void termina() {
         setVisible(false);
+    }
+    
+    public void endProgram() {
+        addWindowListener(new WindowAdapter(){
+            public void windowClosing(WindowEvent we)
+            {
+                termina();
+            }
+        });
     }
 
 }
