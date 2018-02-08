@@ -2,11 +2,8 @@
  * Created by TonyVazgar on 1/28/18.
  */
 
-import com.sun.deploy.net.proxy.pac.PACFunctions;
-
 import java.awt.*;
 import java.awt.event.ActionEvent;
-
 
 public class Mediador implements Controller {
 
@@ -102,11 +99,7 @@ public class Mediador implements Controller {
 
         if(accion.equals("Borrar")){
             model.eliminaDatosDeLaEstructura(indice);
-            if(indice == model.size()-1){
-                indice = 0;
-            }else {
-                indice = indice + 1;
-            }
+            decrementaApuntador();
             actualizaElView();
         }
     }//end actualizaElModel
@@ -116,33 +109,28 @@ public class Mediador implements Controller {
         indice = indice + 1;
         model.agregaDatosALaEstructura(indice, nuevoPaciente);
         actualizaElView();
-        //model.salvaDatosDeLaEstructuraAlRepositorio();
-        //System.err.println(indice);
     }
 
 
     public void actionPerformed(ActionEvent evento) {
 
         Button botonAccionado = (Button) evento.getSource();
-        //System.out.println(botonAccionado.getLabel());
 
         if(botonAccionado == view.nuevo) {
             InterfazNuevaReceta nr = new InterfazNuevaReceta();
             nr.mediador = this;
             nr.inicia();
-        }
-        if(botonAccionado == view.borrar) {
+        }else if(botonAccionado == view.borrar) {
+            System.err.println("Vouy a borrar: " + indice);
             solicitaActualizacionDelModel("Borrar");
-        }
-        if(botonAccionado == view.anterior) {
+        }else if(botonAccionado == view.anterior) {
             decrementaApuntador();
             actualizaElView();
-        }
-        if(botonAccionado == view.siguiente) {
+        }else if(botonAccionado == view.siguiente) {
+            System.out.println("Tamaño es: " + model.size());
             incrementaApuntador();
             actualizaElView();
-        }
-        if(botonAccionado == view.guardar){
+        }else if(botonAccionado == view.guardar){
             model.salvaDatosDeLaEstructuraAlRepositorio();
         }
     }
