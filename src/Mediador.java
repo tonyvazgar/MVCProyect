@@ -4,6 +4,7 @@
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import javax.swing.JOptionPane;
 
 public class Mediador implements Controller {
 
@@ -11,6 +12,7 @@ public class Mediador implements Controller {
     InterfazNuevaReceta nuevaReceta;
     Paciente paciente;
     Datos model;
+    String borrado;
     int indice;
 
 
@@ -19,12 +21,9 @@ public class Mediador implements Controller {
         indice = 0;
         this.view = view;
         this.nuevaReceta = nuevaReceta;
-    }//end constructor
-
-    public Mediador(){
-
     }
-    ///////// Metodos de obtencion de datos del Model /////////////
+
+    public Mediador(){}
 
     public Paciente obtieneDatoDelModel(int indice) {
         Paciente dato = null;
@@ -32,9 +31,7 @@ public class Mediador implements Controller {
             dato = model.get(indice);
         }
         return dato;
-    }//end obtieneDatoDelModel
-
-    ///////// Metodos de obtencion de datos del View /////////////
+    }
 
     public Paciente obtieneDatoDelView() {
         Paciente paciente;
@@ -54,14 +51,11 @@ public class Mediador implements Controller {
         paciente = new Paciente(nombre,fecha,sexo,peso,temperatura,edad,diagnostico,tratamiento);
 
         return paciente;
-    }//end obtieneDatoDelView
-
+    }
 
     public void actualizaElView() {
-        model.ordenaLaEstructura();
-        String nombre, fecha, sexo, temperatura, diagnostico, tratamiento;
-        int peso, edad;
 
+        model.ordenaLaEstructura();
         paciente = obtieneDatoDelModel(indice);
 
         if (paciente != null) {
@@ -74,26 +68,21 @@ public class Mediador implements Controller {
             view.diagnostico.setText(paciente.getDiagnostico());
             view.tratamiento.setText(paciente.getTratamiento());
         }
-    }//end actualizaElView
+    }
 
     private void decrementaApuntador() {
         if(indice == 0)
             indice = model.size()-1;
         else
             indice = indice - 1;
-    }//end decrementaApuntador
-
+    }
 
     private void incrementaApuntador() {
         if(indice == model.size()-1)
             indice = 0;
         else
             indice = indice  + 1;
-    }//end incrementaApuntador
-
-
-
-    ///////// Metodos de actualizacion del Model /////////////
+    }
 
     public void solicitaActualizacionDelModel(String accion) {
 
@@ -102,15 +91,13 @@ public class Mediador implements Controller {
             decrementaApuntador();
             actualizaElView();
         }
-    }//end actualizaElModel
-
+    }
 
     public void guadar(Paciente nuevoPaciente){
         indice = indice + 1;
         model.agregaDatosALaEstructura(indice, nuevoPaciente);
         actualizaElView();
     }
-
 
     public void actionPerformed(ActionEvent evento) {
 
@@ -121,8 +108,9 @@ public class Mediador implements Controller {
             nr.mediador = this;
             nr.inicia();
         }else if(botonAccionado == view.borrar) {
-            System.err.println("Vouy a borrar: " + indice);
+            borrado = obtieneDatoDelView().getNombre().toUpperCase();
             solicitaActualizacionDelModel("Borrar");
+            mensaje("Borrado");
         }else if(botonAccionado == view.anterior) {
             decrementaApuntador();
             actualizaElView();
@@ -132,6 +120,15 @@ public class Mediador implements Controller {
             actualizaElView();
         }else if(botonAccionado == view.guardar){
             model.salvaDatosDeLaEstructuraAlRepositorio();
+            mensaje("Guardado");
         }
     }
-}//end class Mediator
+
+    private void mensaje(String mensaje){
+        if(mensaje.equals("Borrado")){
+            JOptionPane.showMessageDialog(view, "Se ha removido la receta de " + borrado + ", pulse el botón guardar para confirmar", "AVISO", JOptionPane.PLAIN_MESSAGE);
+        }else if(mensaje.equals("Guardado")){
+            JOptionPane.showMessageDialog(view, "SE HAN GUARDADO LOS DATOS CORRECTAMENTE", "AVISO", JOptionPane.PLAIN_MESSAGE);
+        }
+    }
+}

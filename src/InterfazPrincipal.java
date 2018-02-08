@@ -155,13 +155,13 @@ public class InterfazPrincipal extends Frame implements View {
         anterior.addActionListener(theController);
         siguiente.addActionListener(theController);
         guardar.addActionListener(theController);
-    }//end setActionListener
+    }
 
     public void inicia() {
         setVisible(true);
     }
 
-    public void endProgram(){
+    public void endProgram() {
         addWindowListener(new WindowAdapter(){
             public void windowClosing(WindowEvent we)
             {
@@ -170,5 +170,4 @@ public class InterfazPrincipal extends Frame implements View {
         });
     }
 
-
-}//end class Interfaz
+}

@@ -7,7 +7,7 @@ import javax.swing.*;
 import java.awt.event.*;
 
 
-public class InterfazNuevaReceta extends Frame implements ActionListener, ItemListener {
+public class InterfazNuevaReceta extends Frame implements ActionListener {
 
     Font tipografia = new Font("Helvetica", Font.PLAIN, 14);
 
@@ -37,7 +37,6 @@ public class InterfazNuevaReceta extends Frame implements ActionListener, ItemLi
     Label etiquetaTratamiento;
 
     public InterfazNuevaReceta() {
-        Color color;
         setTitle("Nueva receta");
         setBounds(100, 100, 460, 500);
         setLocationRelativeTo(null);
@@ -52,7 +51,7 @@ public class InterfazNuevaReceta extends Frame implements ActionListener, ItemLi
         setResizable(false);
         constuyeComponentes();
         setFont(tipografia);
-    }//end constructor
+    }
 
     public void constuyeComponentes() {
         cancelar = new Button("Cancelar");
@@ -110,7 +109,6 @@ public class InterfazNuevaReceta extends Frame implements ActionListener, ItemLi
         add(nombre);
         fecha.setBounds(120, 80, 250, 20);
         add(fecha);
-        //sexo.setBounds(120, 110, 250, 20);
         sexoo.addItem("Masculino");
         sexoo.addItem("Femenino");
         sexoo.setBounds(120,110,250,30);
@@ -125,7 +123,7 @@ public class InterfazNuevaReceta extends Frame implements ActionListener, ItemLi
         add(diagnostico);
         tratamiento.setBounds(120, 260, 250, 150);
         add(tratamiento);
-    }//end constuyeComponentes
+    }
 
     public void actionPerformed(ActionEvent evento) {
         Button botonAccionado = (Button) evento.getSource();
@@ -137,14 +135,12 @@ public class InterfazNuevaReceta extends Frame implements ActionListener, ItemLi
             Paciente dato = obtieneDatoDelView();
             mediador.guadar(dato);
             termina();
-        }//end if
-    }//end actionPerformed
-
+        }
+    }
 
     public Paciente obtieneDatoDelView() {
 
         String nombre, fecha, sexo, temperatura, diagnostico, tratamiento, edad, peso;
-
 
         nombre = this.nombre.getText();
         fecha = this.fecha.getText();
@@ -156,17 +152,14 @@ public class InterfazNuevaReceta extends Frame implements ActionListener, ItemLi
         tratamiento = this.tratamiento.getText();
 
         return new Paciente(nombre,fecha,sexo,peso,temperatura,edad,diagnostico,tratamiento);
-    }//end obtieneDatoDelView
+    }
 
     public void inicia() {
         setVisible(true);
-    }//end inicia
-    public void termina(){
+    }
+
+    public void termina() {
         setVisible(false);
     }
 
-    @Override
-    public void itemStateChanged(ItemEvent e) {
-
-    }
-}//end class Interfaz
+}

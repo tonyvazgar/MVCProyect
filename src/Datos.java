@@ -26,8 +26,7 @@ public class Datos extends LinkedList<Paciente> implements Model {
         numeroDeLineas = datos.getNumberOfLines();
         numeroDeRegistros = numeroDeLineas / 8;
         i = 0;
-        while(i < numeroDeRegistros)
-        {
+        while(i < numeroDeRegistros) {
             nombre = datos.readString();
             fecha = datos.readString();
             sexo = datos.readString();
@@ -39,12 +38,12 @@ public class Datos extends LinkedList<Paciente> implements Model {
             paciente = new Paciente(nombre, fecha, sexo, peso, temperatura, edad, diagnostico, tratamiento);
             add(paciente);
             i = i + 1;
-        }//end while
-
+        }
     }
 
     @Override
     public void salvaDatosDeLaEstructuraAlRepositorio() {
+
         int reg;
         datos = new SequentialFile("./src","recetas","txt");
         datos.create();
@@ -72,7 +71,6 @@ public class Datos extends LinkedList<Paciente> implements Model {
     @Override
     public void modificaDatosEnLaEstructura(int indice, Object unDato) {
         Paciente dato;
-        //
         dato = (Paciente) unDato;
         remove(indice);
         add(indice, dato);
