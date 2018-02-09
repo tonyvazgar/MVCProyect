@@ -1,3 +1,6 @@
+/*
+ * Created by TonyVazgar on 2//18.
+ */
 public class Paciente implements  Comparable<Paciente>{
     private String nombre;
     private String fecha;
@@ -89,7 +92,7 @@ public class Paciente implements  Comparable<Paciente>{
         return nombre.compareTo(op);
     }
 
-    public String  toString(){
+    public String toString(){
         return nombre + " | " + fecha + " | " + sexo + " | " + peso + " | " + temperatura + " | " + edad + " | " + diagnostico + " | " + tratamiento;
     }
 }

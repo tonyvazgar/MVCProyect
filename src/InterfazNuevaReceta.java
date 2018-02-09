@@ -5,6 +5,7 @@
 import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
+import javax.swing.JOptionPane;
 
 
 public class InterfazNuevaReceta extends Frame implements ActionListener {
@@ -133,6 +134,8 @@ public class InterfazNuevaReceta extends Frame implements ActionListener {
             Paciente dato = obtieneDatoDelView();
             mediador.guadar(dato);
             termina();
+            JOptionPane.showMessageDialog(this, "Se ha agregado la receta de " + this.nombre.getText().toUpperCase() + ", pulse GUARDAR si quiere validar esta acción.", "AVISO", JOptionPane.PLAIN_MESSAGE);
+            
         }
     }
 
